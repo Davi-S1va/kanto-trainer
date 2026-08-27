@@ -1,59 +1,67 @@
-# KantoTrainer
+# 🎮 Kanto Trainer
 
-This project was generated using [Angular CLI](https://github.com/angular/angular-cli) version 22.1.4.
+Projeto desenvolvido com Angular com o objetivo de praticar conceitos de desenvolvimento Front-End e aprender gradualmente os principais recursos do framework.
 
-## Development server
+O projeto consiste em uma aplicação baseada nos Pokémon da região de Kanto, contendo uma Pokédex e funcionalidades de pesquisa e navegação entre Pokémon.
 
-To start a local development server, run:
+## 🚀 Funcionalidades atuais
 
-```bash
-ng serve
-```
+- Pokédex com Pokémon da região de Kanto.
+- Exibição das linhas evolutivas.
+- Exibição de número, nome e tipos dos Pokémon.
+- Dados centralizados em um Service.
+- Renderização dinâmica utilizando Angular.
+- Barra de pesquisa de Pokémon.
+- Filtragem dos Pokémon conforme o usuário digita.
+- Sugestões de resultados durante a pesquisa.
+- Navegação para a página individual de cada Pokémon.
+- Rotas dinâmicas utilizando o ID do Pokémon.
 
-Once the server is running, open your browser and navigate to `http://localhost:4200/`. The application will automatically reload whenever you modify any of the source files.
+## 🧠 Conceitos praticados
 
-## Code scaffolding
+Durante o desenvolvimento do projeto estão sendo utilizados conceitos como:
 
-Angular CLI includes powerful code scaffolding tools. To generate a new component, run:
+- Componentes.
+- Data Binding.
+- Interpolação.
+- Property Binding.
+- Event Binding.
+- Two-Way Data Binding com `ngModel`.
+- Diretivas de controle como `@for` e `@if`.
+- Services.
+- Injeção de dependência.
+- Arrays e objetos.
+- Métodos `filter()`, `find()` e `flatMap()`.
+- Angular Router.
+- Rotas dinâmicas.
+- `RouterOutlet`.
+- `ActivatedRoute`.
+- Navegação programática.
 
-```bash
-ng generate component component-name
-```
+## 🗂️ Estrutura principal
 
-For a complete list of available schematics (such as `components`, `directives`, or `pipes`), run:
-
-```bash
-ng generate --help
-```
-
-## Building
-
-To build the project run:
-
-```bash
-ng build
-```
-
-This will compile your project and store the build artifacts in the `dist/` directory. By default, the production build optimizes your application for performance and speed.
-
-## Running unit tests
-
-To execute unit tests with the [Vitest](https://vitest.dev/) test runner, use the following command:
-
-```bash
-ng test
-```
-
-## Running end-to-end tests
-
-For end-to-end (e2e) testing, run:
-
-```bash
-ng e2e
-```
-
-Angular CLI does not come with an end-to-end testing framework by default. You can choose one that suits your needs.
-
-## Additional Resources
-
-For more information on using the Angular CLI, including detailed command references, visit the [Angular CLI Overview and Command Reference](https://angular.dev/tools/cli) page.
+```text
+src/app
+│
+├── navbar/
+│   ├── navbar.ts
+│   ├── navbar.html
+│   └── navbar.css
+│
+├── pokedex/
+│   ├── pokedex.ts
+│   ├── pokedex.html
+│   └── pokedex.css
+│
+├── pokemon-detalhes/
+│   ├── pokemon-detalhes.ts
+│   ├── pokemon-detalhes.html
+│   └── pokemon-detalhes.css
+│
+├── services/
+│   └── pokemon.ts
+│
+├── app.routes.ts
+├── app.ts
+├── app.html
+└── app.css
