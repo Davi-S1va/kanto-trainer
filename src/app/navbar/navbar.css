@@ -1,0 +1,49 @@
+.minha-navbar {
+  background-color: rgb(221, 69, 69);
+}
+
+/* .barra-pesquisa{
+  position: absolute;
+  left: 300px;
+  width: 400px;
+}
+.buscar-botao{
+  background-color: white;
+  color:rgb(221, 69, 69) ;
+  margin-bottom: auto;    
+} */
+
+.liks_pag{
+  
+  top: 65px;
+  left:58%;
+  position: absolute;
+  
+}
+
+.nav-link{
+  color: rgb(255, 252, 252);
+}
+
+.pesquisa-container {
+  position: absolute;
+  left: 300px;
+  width: 400px;
+}
+.resultados-pesquisa {
+  position: absolute;
+  width: 100%;
+  z-index: 1000;
+}
+
+.resultado-item {
+  padding: 10px;
+  cursor: pointer;
+  background-color: aliceblue;
+  width: 300px;
+}
+.buscar-botao{
+  background-color: white;
+  color:rgb(221, 69, 69) ;
+  margin-bottom: auto;    
+} 

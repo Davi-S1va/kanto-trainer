@@ -1,0 +1,58 @@
+
+<nav class="navbar minha-navbar">
+  <div class="container-fluid">
+
+    <a class="navbar-brand logo"> 
+        <img src="/KantoTrainer_Transparente.png" alt="KantoTrainer" width = "140" class="me-2">
+    </a>
+
+
+    <div class="pesquisa-container">
+    <form class="d-flex barra-pesquisa" role="search">
+    
+      <input class="form-control me-2" 
+      type="search" 
+      placeholder="Buscar Pokémon" 
+      aria-label="Search"
+      name="pesquisa"
+      [(ngModel)]="pesquisa"
+      
+      />
+      
+      <button class="btn buscar-botao" 
+      type="submit">
+      Procurar
+      
+    </button>
+    </form>
+    @if (pesquisa.length > 0) {
+
+    <div 
+    class="resultados-pesquisa"
+    >
+      @for (pokemon of filtrarPokemon(); track pokemon.id) {
+        <div 
+        class="resultado-item"
+        (click)="selecionarPokemon(pokemon)"
+        >
+          {{ pokemon.nome }}
+      </div>
+
+    }
+
+  </div>
+
+}
+    </div>
+   
+    <ul class="liks_pag nav nav-tabs ">
+    <li class="nav-item">
+    <a class="nav-link active" aria-current="page" href="#">Pokedex</a>
+    </li>
+    <li class="nav-item">
+      <a class="nav-link" href="#">Meu Time</a>
+    </li>
+    </ul>
+     
+  </div>
+</nav>

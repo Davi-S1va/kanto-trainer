@@ -1,0 +1,64 @@
+.numero-pokedex {
+  font-weight: bold;
+  font-size: 18px;
+  width: 80px;
+}
+
+.pokemon {
+  min-width: 120px;
+}
+
+.pokemon img {
+  width: 100px;
+  height: 100px;
+  image-rendering: pixelated;
+}
+
+.pokemon h5 {
+  margin-top: 5px;
+  font-size: 16px;
+}
+
+.seta {
+  font-size: 30px;
+  font-weight: bold;
+}
+
+/* Tipos */
+
+.tipo-voador{
+  background-color: #75777e;
+  color: aliceblue;
+  margin-left: 10px;
+}
+
+.tipo-planta {
+  background-color: #78C850;
+  margin-left: 10px
+}
+
+.tipo-veneno {
+  background-color: #A040A0;
+  margin-left: 10px
+}
+
+.tipo-fogo {
+  background-color: #F08030;
+  margin-left: 10px
+}
+
+.tipo-voador {
+  background-color: #A890F0;
+  margin-left: 10px
+}
+
+.tipo-agua {
+  background-color: #6890F0;
+  margin-left: 10px
+}
+
+.tipo-eletrico {
+  background-color: #F8D030;
+  color: black;
+  margin-left: 10px
+}
