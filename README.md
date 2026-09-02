@@ -4,12 +4,19 @@ Uma Pokédex inspirada na região de Kanto, desenvolvida com Angular e integrada
 
 O projeto foi criado como uma forma de praticar desenvolvimento web, consumo de APIs, componentes Angular, roteamento, organização de serviços e construção de interfaces responsivas.
 
-
+---
 ## Acesse o projeto
 
-🚀 **[Clique aqui para acessar o Kanto Trainer](https://davi-s1va.github.io/kanto-trainer/)**
-
 ---
+🚀 **[Clique aqui para acessar o Kanto Trainer](https://davi-s1va.github.io/kanto-trainer/)**
+<td>
+  &nbsp;&nbsp;
+  <img 
+    src="https://media.tenor.com/yso9Ncqwm5UAAAAi/click-subscribe.gif" 
+    width="120"
+  />
+</td>
+
 ---
 
 ## Sobre o projeto
@@ -434,13 +441,21 @@ Algumas funcionalidades planejadas para versões futuras:
  Melhorias de responsividade
  Animações adicionais
  Melhorias gerais de UI/UX
-Créditos
+ ```
+## Créditos
 
-Projeto desenvolvido por Davi-S1va.
 
-GitHub:
+Projeto desenvolvido por **[Dav-S1va](https://github.com/Davi-S1va)**
 
-https://github.com/Davi-S1va
+GitHub: https://github.com/Davi-S1va
 
-Os dados dos Pokémon são fornecidos pela PokeAPI:
-https://pokeapi.co/docs/v2
+
+PokeAPI: https://pokeapi.co/docs/v2
+<td width="60%" align="center" valign="middle">
+
+<img 
+  src="https://media.tenor.com/3Ee3bt5jNxQAAAAi/pokemon-pok%C3%A9mon.gif"
+  width="100px"
+/>
+
+</td>
