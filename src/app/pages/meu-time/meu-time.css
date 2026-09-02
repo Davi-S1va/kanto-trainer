@@ -1,0 +1,48 @@
+.pagina-em-construcao {
+
+  min-height:
+    calc(100vh - 80px);
+
+  display: flex;
+
+  align-items: center;
+
+  justify-content: center;
+
+  text-align: center;
+
+}
+
+
+.conteudo {
+
+  padding: 50px;
+
+}
+
+
+.conteudo h1 {
+
+  font-size: 45px;
+
+  margin-bottom: 20px;
+
+}
+
+
+.conteudo p {
+
+  font-size: 24px;
+
+  font-weight: bold;
+
+}
+
+
+.conteudo span {
+
+  opacity: 0.7;
+
+  font-size: 16px;
+
+}

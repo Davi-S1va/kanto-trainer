@@ -1,7 +1,400 @@
-@if (pokemonSelecionado) {
+@if (pokemonApi) {
 
-  <h1>{{ pokemonSelecionado.nome }}</h1>
+  <main class="pokemon-detalhes">
 
-  <p>Número: #{{ pokemonSelecionado.id }}</p>
+
+    <!-- CABEÇALHO -->
+
+    <section class="cabecalho-pokemon">
+
+
+      <div class="pokemon-identificacao">
+
+
+        <span class="numero-pokemon">
+
+          #{{ pokemonApi.id
+            .toString()
+            .padStart(3, '0')
+          }}
+
+        </span>
+
+
+        <h1>
+
+          {{
+            pokemonApi.name
+            | titlecase
+          }}
+
+        </h1>
+
+
+        <!-- TIPOS -->
+
+        <div class="tipos">
+
+
+          @for (
+            tipo of pokemonApi.types;
+            track tipo.type.name
+          ) {
+
+
+            <span
+              class="tipo"
+
+              [class.tipo-normal]="
+                tipo.type.name === 'normal'
+              "
+
+              [class.tipo-fogo]="
+                tipo.type.name === 'fire'
+              "
+
+              [class.tipo-agua]="
+                tipo.type.name === 'water'
+              "
+
+              [class.tipo-eletrico]="
+                tipo.type.name === 'electric'
+              "
+
+              [class.tipo-planta]="
+                tipo.type.name === 'grass'
+              "
+
+              [class.tipo-gelo]="
+                tipo.type.name === 'ice'
+              "
+
+              [class.tipo-lutador]="
+                tipo.type.name === 'fighting'
+              "
+
+              [class.tipo-veneno]="
+                tipo.type.name === 'poison'
+              "
+
+              [class.tipo-terrestre]="
+                tipo.type.name === 'ground'
+              "
+
+              [class.tipo-voador]="
+                tipo.type.name === 'flying'
+              "
+
+              [class.tipo-psiquico]="
+                tipo.type.name === 'psychic'
+              "
+
+              [class.tipo-inseto]="
+                tipo.type.name === 'bug'
+              "
+
+              [class.tipo-pedra]="
+                tipo.type.name === 'rock'
+              "
+
+              [class.tipo-fantasma]="
+                tipo.type.name === 'ghost'
+              "
+
+              [class.tipo-dragao]="
+                tipo.type.name === 'dragon'
+              "
+
+              [class.tipo-sombrio]="
+                tipo.type.name === 'dark'
+              "
+
+              [class.tipo-aco]="
+                tipo.type.name === 'steel'
+              "
+
+              [class.tipo-fada]="
+                tipo.type.name === 'fairy'
+              "
+
+            >
+
+              {{
+                traduzirTipo(
+                  tipo.type.name
+                )
+              }}
+
+            </span>
+
+
+          }
+
+
+        </div>
+
+
+      </div>
+
+
+      <!-- GIF DO POKÉMON -->
+
+      <div class="imagem-container">
+
+
+        <img
+          #imagemPokemon
+
+          class="gif-pokemon"
+
+          alt="Pokémon"
+
+          width="300"
+        >
+
+
+      </div>
+
+
+    </section>
+
+
+
+    <!-- INFORMAÇÕES -->
+
+    <section class="informacoes">
+
+
+      <div class="info-card">
+
+
+        <span class="info-titulo">
+
+          Altura
+
+        </span>
+
+
+        <strong>
+
+          {{
+            pokemonApi.height / 10
+          }} m
+
+        </strong>
+
+
+      </div>
+
+
+
+      <div class="info-card">
+
+
+        <span class="info-titulo">
+
+          Peso
+
+        </span>
+
+
+        <strong>
+
+          {{
+            pokemonApi.weight / 10
+          }} kg
+
+        </strong>
+
+
+      </div>
+
+
+
+      <div class="info-card">
+
+
+        <span class="info-titulo">
+
+          Habilidade
+
+        </span>
+
+
+        <strong>
+
+          {{
+            pokemonApi
+              .abilities[0]
+              .ability
+              .name
+              | titlecase
+          }}
+
+        </strong>
+
+
+      </div>
+
+
+    </section>
+
+
+
+    <!-- STATUS -->
+
+    <section class="status-container">
+
+
+      <div class="titulo-secao">
+
+
+        <h2>
+
+          Estatísticas
+
+        </h2>
+
+
+        <span>
+
+          Status Base
+
+        </span>
+
+
+      </div>
+
+
+
+      <div class="status-list">
+
+
+        @for (
+          stat of pokemonApi.stats;
+          track stat.stat.name
+        ) {
+
+
+          <div class="status-item">
+
+
+            <!-- Nome e número -->
+
+            <div class="status-cabecalho">
+
+
+              <span>
+
+                {{
+                  traduzirStatus(
+                    stat.stat.name
+                  )
+                }}
+
+              </span>
+
+
+              <strong>
+
+                {{
+                  stat.base_stat
+                }}
+
+              </strong>
+
+
+            </div>
+
+
+
+            <!-- BARRA -->
+
+            <div class="barra-fundo">
+
+
+              <div
+                class="barra"
+
+                [style.width.%]="
+                  porcentagemStatus(
+                    stat.base_stat
+                  )
+                "
+
+                [style.background-color]="
+                  corStatus(
+                    stat.base_stat
+                  )
+                "
+
+              ></div>
+
+
+            </div>
+
+
+          </div>
+
+
+        }
+
+
+      </div>
+
+
+    </section>
+
+
+
+    <!-- BOTÃO -->
+
+    <div class="area-botao">
+
+
+      <button
+        class="botao-voltar"
+
+        (click)="voltarParaPokedex()"
+      >
+
+        Voltar para Pokédex
+
+      </button>
+
+
+    </div>
+
+
+  </main>
+
+
+}
+
+
+@else {
+
+
+  <div class="carregando-detalhes">
+
+
+    <img
+      src="/carregamento.gif"
+
+      alt="Carregando"
+
+      class="pikachu-carregando"
+    >
+
+
+    <p>
+
+      Carregando Pokémon...
+
+    </p>
+
+
+  </div>
+
 
 }

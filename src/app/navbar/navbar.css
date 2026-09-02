@@ -1,35 +1,30 @@
 .minha-navbar {
   background-color: rgb(221, 69, 69);
+  position: relative; 
+  height: 130px;  
 }
 
-/* .barra-pesquisa{
+.links_pag {
   position: absolute;
-  left: 300px;
-  width: 400px;
-}
-.buscar-botao{
-  background-color: white;
-  color:rgb(221, 69, 69) ;
-  margin-bottom: auto;    
-} */
-
-.liks_pag{
-  
-  top: 65px;
-  left:58%;
-  position: absolute;
-  
+  bottom: 10px;
+  left: 50%;
+  transform: translateX(40%);
 }
 
-.nav-link{
+.nav-link {
   color: rgb(255, 252, 252);
+  font-weight: bold;
+  font-size: 1.2rem;  
+  text-decoration: none; 
+  margin: 0 10px;  
 }
 
 .pesquisa-container {
   position: absolute;
   left: 300px;
-  width: 400px;
+  width: 600px;
 }
+
 .resultados-pesquisa {
   position: absolute;
   width: 100%;
@@ -42,8 +37,9 @@
   background-color: aliceblue;
   width: 300px;
 }
-.buscar-botao{
+
+.buscar-botao {
   background-color: white;
-  color:rgb(221, 69, 69) ;
-  margin-bottom: auto;    
-} 
+  color: rgb(221, 69, 69);
+  font-weight: bold;
+}

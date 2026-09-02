@@ -1,89 +1,118 @@
-<div class="container mt-4">
+<div class="pokedex-container">
 
-  <div class="table-responsive">
 
-    <table class="table table-hover align-middle">
 
-      <thead>
-        <tr>
-          <th>#</th>
-          <th>Linha Evolutiva</th>
-        </tr>
-      </thead>
 
-      <tbody>
+  @if (carregando) {
 
-        @for (familia of pokemonService.familias; track familia.numero) {
+    <p class="mensagem">
+      ⏳ Carregando Pokémon...
+    </p>
 
-          <tr>
+  }
 
-            <td class="numero-pokedex">
-              #{{ familia.numero.toString().padStart(3,'0') }}
-            </td>
 
-            <td>
+  @if (erro) {
 
-              <div class="d-flex align-items-center gap-3">
+    <p class="erro">
 
-                @for (pokemon of familia.pokemons; track pokemon.id; let last = $last) {
+      {{ erro }}
 
-                  <div class="pokemon text-center">
+    </p>
 
-                    <img
-                      src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/{{ pokemon.id }}.png"
-                      alt="{{ pokemon.nome }}"
-                    >
+  }
 
-                    <h5>{{ pokemon.nome }}</h5>
 
-                    @for (tipo of pokemon.tipos; track tipo) {
+  @if (!carregando && pokemons.length > 0) {
+ <br>
+ <br>
 
-                      <span 
-                      class="badge"
-                      [class.tipo-planta]="tipo==='Planta'"
-                      [class.tipo-veneno]="tipo==='Veneno'"
-                      [class.tipo-fogo]="tipo==='Fogo'"
-                      [class.tipo-agua]="tipo==='Água'"
-                      [class.tipo-voador]="tipo==='Voador'"
-                      [class.tipo-eletrico]="tipo==='Elétrico'"
-                      [class.tipo-inseto]="tipo==='Inseto'"
-                      [class.tipo-lutador]="tipo==='Lutador'"
-                      [class.tipo-psiquico]="tipo==='Psíquico'"
-                      [class.tipo-pedra]="tipo==='Pedra'"
-                      [class.tipo-gelo]="tipo==='Gelo'"
-                      [class.tipo-normal]="tipo==='Normal'"
-                      [class.tipo-terrestre]="tipo==='Terrestre'"
-                      [class.tipo-dragao]="tipo==='Dragão'"
-                      [class.tipo-fantasma]="tipo==='Fantasma'"
-                      
+    <div class="pokemon-grid">
 
-                      
-                      >
-                      
-                     {{tipo}}
-                     
-                      </span>
 
-                    }
+      @for (
+        pokemon of pokemons;
+        track pokemon.id
+      ) {
 
-                  </div>
-                  @if (!last) {
-                    <span class="seta"> → </span>
-                  }
-                }
+        <div
+          class="pokemon-card"
+          (click)="abrirPokemon(pokemon)"
+        >
 
-              </div>
 
-            </td>
+          <div class="numero">
 
-          </tr>
+            #{{ pokemon.id
+              .toString()
+              .padStart(3, '0')
+            }}
 
-        }
+          </div>
 
-      </tbody>
 
-    </table>
+          <img
 
-  </div>
+            [src]="
+              'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/'
+              +
+              pokemon.id
+              +
+              '.png'
+            "
+
+            [alt]="pokemon.nome"
+
+
+            (error)="
+              $any($event.target).style.display =
+              'none'
+            "
+
+          >
+
+
+          <h2>
+
+            {{ pokemon.nome }}
+
+          </h2>
+
+
+          <button
+            type="button"
+          >
+
+            Ver detalhes
+
+          </button>
+
+
+        </div>
+
+      }
+
+
+    </div>
+
+  }
+
+
+  @if (
+    !carregando &&
+    pokemons.length === 0 &&
+    !erro
+  ) {
+
+    <p class="mensagem">
+
+      Nenhum Pokémon encontrado.
+      
+      <img src="https://media.tenor.com/sUigUVXeBU0AAAAm/charizard-pokemon.webp" >
+
+    </p>
+
+  }
+
 
 </div>

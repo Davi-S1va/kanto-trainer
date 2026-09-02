@@ -1,0 +1,85 @@
+.creditos {
+
+  min-height: 100vh;
+
+  display: flex;
+
+  justify-content: center;
+
+  align-items: center;
+
+  text-align: center;
+
+}
+
+
+.creditos-conteudo {
+
+  max-width: 700px;
+
+  padding: 40px;
+
+}
+
+
+.creditos h1 {
+
+  font-size: 45px;
+
+  margin-bottom: 30px;
+
+}
+
+
+.gif-creditos {
+
+  max-width: 300px;
+
+  width: 400px;
+
+  border-radius: 15px;
+
+  margin-bottom: 30px;
+
+}
+
+
+.creditos p {
+
+  font-size: 17px;
+
+  line-height: 1.6;
+
+}
+
+
+.github-link {
+
+  display: inline-block;
+
+  margin-top: 20px;
+
+  padding:
+
+    12px
+    25px;
+
+  border-radius: 8px;
+
+  text-decoration: none;
+
+  font-weight: bold;
+
+  background: #24292f;
+
+  color: white;
+
+}
+
+
+.github-link:hover {
+
+  transform:
+    translateY(-2px);
+
+}

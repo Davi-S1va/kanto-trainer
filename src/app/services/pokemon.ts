@@ -1,92 +1,104 @@
 import { Injectable } from '@angular/core';
 
+import { HttpClient } from '@angular/common/http';
+
+import { Pokemon } from '../../models/pokemon';
+
+import { PokemonApi } from '../../models/pokemon-api';
+
+import { Observable } from 'rxjs';
+
+import { PokemonLista } from '../../models/pokemon-lista';
 
 @Injectable({
   providedIn: 'root'
 })
-export class Pokemon {
-     familias = [
 
-    {
-      numero: 1,
-      pokemons: [
-        {
-          id: 1,
-          nome: 'Bulbasaur',
-          tipos: ['Planta', 'Veneno']
-        },
-        {
-          id: 2,
-          nome: 'Ivysaur',
-          tipos: ['Planta', 'Veneno']
-        },
-        {
-          id: 3,
-          nome: 'Venusaur',
-          tipos: ['Planta', 'Veneno']
-        }
-      ]
-    },
 
-    {
-      numero: 4,
-      pokemons: [
-        {
-          id: 4,
-          nome: 'Charmander',
-          tipos: ['Fogo']
-        },
-        {
-          id: 5,
-          nome: 'Charmeleon',
-          tipos: ['Fogo']
-        },
-        {
-          id: 6,
-          nome: 'Charizard',
-          tipos: ['Fogo', 'Voador']
-        }
-      ]
-    },
+export class PokemonService {
 
-    {
-      numero: 7,
-      pokemons: [
-        {
-          id: 7,
-          nome: 'Squirtle',
-          tipos: ['Água']
-        },
-        {
-          id: 8,
-          nome: 'Wartortle',
-          tipos: ['Água']
-        },
-        {
-          id: 9,
-          nome: 'Blastoise',
-          tipos: ['Água']
-        }
-      ]
-    },
+  private apiUrl =
+    'https://pokeapi.co/api/v2/pokemon';
 
-    {
-      numero: 25,
-      pokemons: [
-        {
-          id: 25,
-          nome: 'Pikachu',
-          tipos: ['Elétrico']
-        },
-        {
-          id: 26,
-          nome: 'Raichu',
-          tipos: ['Elétrico']
-        }
-      ]
-    }
 
-  ];
+  constructor(
+    private http: HttpClient
+  ) {}
 
+  
+  buscarPokemonsKanto(): Observable<any> {
+
+    return this.http.get<any>(
+      `${this.apiUrl}?limit=151&offset=0`
+    );
+
+  }
+
+
+  buscarPokemon(id: number) {
+
+    return this.http.get<PokemonApi>(
+      `${this.apiUrl}/${id}`
+    );
+
+  }
+
+
+  private transformarPokemon(
+    pokemonApi: PokemonApi
+  ): Pokemon {
+
+    return {
+
+      id: pokemonApi.id,
+
+      nome: pokemonApi.name,
+
+      tipos: pokemonApi.types.map(
+        tipo => tipo.type.name
+      ),
+
+      altura:
+        `${pokemonApi.height / 10} m`,
+
+      peso:
+        `${pokemonApi.weight / 10} kg`,
+
+      categoria: '',
+
+      habilidade:
+        pokemonApi.abilities[0]?.ability.name ?? '',
+
+      fraquezas: [],
+
+      descricao: '',
+
+      gif: '',
+
+      estatisticas: {
+
+        hp:
+          pokemonApi.stats[0]?.base_stat ?? 0,
+
+        ataque:
+          pokemonApi.stats[1]?.base_stat ?? 0,
+
+        defesa:
+          pokemonApi.stats[2]?.base_stat ?? 0,
+
+        ataqueEspecial:
+          pokemonApi.stats[3]?.base_stat ?? 0,
+
+        defesaEspecial:
+          pokemonApi.stats[4]?.base_stat ?? 0,
+
+        velocidade:
+          pokemonApi.stats[5]?.base_stat ?? 0
+
+      }
+
+    };
+
+  }
 
 }
