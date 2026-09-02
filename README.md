@@ -4,6 +4,12 @@ Uma Pokédex inspirada na região de Kanto, desenvolvida com Angular e integrada
 
 O projeto foi criado como uma forma de praticar desenvolvimento web, consumo de APIs, componentes Angular, roteamento, organização de serviços e construção de interfaces responsivas.
 
+
+## Acesse o projeto
+
+🚀 **[Clique aqui para acessar o Kanto Trainer](https://davi-s1va.github.io/kanto-trainer/)**
+
+---
 ---
 
 ## Sobre o projeto
