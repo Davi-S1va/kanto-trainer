@@ -1,37 +1,37 @@
 # Kanto Trainer
 
-Uma Pokédex inspirada na região de Kanto, desenvolvida com Angular e integrada à PokeAPI.
-O projeto foi criado como uma forma de praticar desenvolvimento web, consumo de APIs, componentes Angular, roteamento, organização de serviços e construção de interfaces responsivas.
+Uma Pokédex interativa inspirada na região de Kanto, desenvolvida com Angular e integrada à PokeAPI.
+
+O projeto foi criado como uma forma de praticar desenvolvimento web, consumo de APIs, componentes Angular, roteamento, organização de serviços, manipulação de imagens, interfaces responsivas e construção de experiências inspiradas nos jogos clássicos de Pokémon.
 
 ---
-## Acesse o projeto
 
-🚀 **[Clique aqui para acessar o Kanto Trainer](https://davi-s1va.github.io/kanto-trainer/)**
-<td>
-  &nbsp;&nbsp;
-  <img 
-    src="https://media.tenor.com/yso9Ncqwm5UAAAAi/click-subscribe.gif" 
+## 🚀 Acesse o projeto
+
+**[Clique aqui para acessar o Kanto Trainer](https://davi-s1va.github.io/kanto-trainer/)**
+
+<p align>
+  <img
+    src="https://media.tenor.com/yso9Ncqwm5UAAAAi/click-subscribe.gif"
     width="120"
   />
-</td>
+</p>
 
 ---
 
-## Sobre o projeto
+# 📖 Sobre o projeto
 
-O Kanto Trainer é uma Pokédex que apresenta os 151 Pokémon originais da região de Kanto.
+O **Kanto Trainer** é uma aplicação web que apresenta os **151 Pokémon originais da região de Kanto**.
 
-A aplicação permite visualizar os Pokémon em uma Pokédex, acessar uma página individual com informações detalhadas e consultar suas estatísticas através de um gráfico de barras.
+A aplicação possui uma Pokédex principal, páginas individuais para cada Pokémon e um sistema de criação de equipe.
 
-Além disso, o projeto possui uma barra de pesquisa, sistema de navegação entre páginas e uma tela de carregamento personalizada com um GIF do Pikachu.
-
-A interface segue uma estética inspirada nos jogos clássicos de Pokémon, utilizando elementos visuais que remetem ao estilo pixel art.
+O projeto combina recursos modernos do Angular com uma identidade visual inspirada nos jogos clássicos de Pokémon, utilizando sprites, GIFs animados, elementos pixel art, cores fortes, bordas marcadas e componentes interativos.
 
 ---
 
-## Funcionalidades
+# ✨ Funcionalidades
 
-### Pokédex
+## 🔴 Pokédex
 
 A página principal apresenta os 151 Pokémon da primeira geração.
 
@@ -40,58 +40,69 @@ Cada Pokémon possui:
 - Número na Pokédex
 - Nome
 - Sprite
-- Tipos
 - Acesso à página de detalhes
+- Navegação individual
 
-Os dados básicos dos Pokémon são obtidos através da PokeAPI.
+Os dados são obtidos através da **PokeAPI**.
 
 ---
 
-### Página de detalhes
+# 📟 Pokédex individual
 
-Cada Pokémon possui uma página própria.
+Cada Pokémon possui uma página própria utilizando a rota:
 
-A rota utilizada segue o padrão:
-
-`/pokemon/:id`
+```text
+/pokemon/:id
 
 Por exemplo:
 
-`/pokemon/25`
+/pokemon/25
 
 corresponde ao Pikachu.
 
-A página apresenta:
+A página individual apresenta uma interface inspirada em uma Pokédex física, contendo:
 
-- Número da Pokédex
-- Nome
-- Tipos
-- GIF animado do Pokémon
-- Altura
-- Peso
-- Habilidade
-- Estatísticas base
+Número da Pokédex
+Nome
+Tipos
+GIF animado
+Altura
+Peso
+Habilidade
+Experiência base
+Estatísticas base
+Navegação entre Pokémon
+🎮 D-Pad
 
----
+A Pokédex individual possui um D-pad funcional.
 
-## Gráfico de estatísticas
-
-A página de detalhes possui um gráfico de barras para representar os atributos base de cada Pokémon.
-
-São apresentados:
-
-- HP
-- Ataque
-- Defesa
-- Ataque Especial
-- Defesa Especial
-- Velocidade
-
-O tamanho da barra é calculado utilizando o valor da estatística em relação ao valor máximo de referência.
+Os botões esquerdo e direito permitem navegar entre os Pokémon.
 
 Exemplo:
 
-```text
+Pokémon #025
+     ↓
+← Pokémon anterior | Próximo Pokémon →
+
+A navegação é feita através do Angular Router, permitindo alterar o Pokémon sem precisar recarregar a aplicação.
+
+📊 Estatísticas
+
+A página de detalhes apresenta as estatísticas base do Pokémon através de barras visuais.
+
+São apresentados:
+
+HP
+Ataque
+Defesa
+Ataque Especial
+Defesa Especial
+Velocidade
+
+O tamanho das barras é calculado de acordo com o valor da estatística em relação ao valor máximo utilizado como referência.
+
+Exemplo:
+
 HP                 35
 ██████
 
@@ -106,7 +117,133 @@ Velocidade         90
 
 As barras também possuem cores diferentes de acordo com o valor da estatística.
 
-Sistema de carregamento
+👥 Meu Time
+
+O projeto possui uma área dedicada à criação de uma equipe Pokémon.
+
+Rota:
+
+/meu-time
+
+A interface simula um campo de batalha inspirado nos jogos clássicos.
+
+O usuário pode montar uma equipe com até 6 Pokémon.
+
+🏆 Montagem da equipe
+
+Os Pokémon selecionados são exibidos diretamente no campo.
+
+Cada posição da equipe possui um slot próprio.
+
+A equipe possui:
+
+┌─────────┬─────────┬─────────┐
+│ SLOT 1  │ SLOT 2  │ SLOT 3  │
+├─────────┼─────────┼─────────┤
+│ SLOT 4  │ SLOT 5  │ SLOT 6  │
+└─────────┴─────────┴─────────┘
+
+Os Pokémon são exibidos utilizando seus GIFs normais, enquanto a lista lateral utiliza versões menores dos GIFs.
+
+🚫 Pokémon duplicados
+
+Um Pokémon não pode ser selecionado duas vezes na mesma equipe.
+
+Quando um Pokémon já está no time:
+
+O item fica marcado na lista.
+O Pokémon não pode ser selecionado novamente.
+O sistema impede automaticamente a duplicação.
+
+Isso mantém a regra básica de uma equipe Pokémon.
+
+🎮 D-Pad do Meu Time
+
+O campo possui um D-pad para navegar entre os seis slots da equipe.
+
+O usuário pode utilizar:
+
+⬆️ Cima
+⬇️ Baixo
+⬅️ Esquerda
+➡️ Direita
+
+O slot atualmente selecionado é destacado visualmente.
+
+A navegação permite escolher em qual posição o próximo Pokémon será colocado.
+
+🔄 Reset Time
+
+A interface possui um botão:
+
+RESET TIME
+
+Ao clicar nele, todos os Pokémon selecionados são removidos e os seis slots retornam ao estado inicial.
+
+Equipe atual
+   ↓
+RESET TIME
+   ↓
+6 slots vazios
+🧑‍🏫 Treinador
+
+A área Meu Time também possui um treinador.
+
+É possível alternar entre:
+
+Red
+Leaf
+
+O treinador é exibido utilizando sprites/GIFs em estilo pixel art.
+
+🐾 Companheiro Pokémon
+
+O treinador possui uma Pokébola interativa.
+
+Ao clicar nela, é aberta uma interface para escolher o Pokémon que acompanhará o treinador.
+
+O sistema possui:
+
+Lista dos Pokémon
+GIFs mini dos Pokémon
+Barra de pesquisa
+Seleção de um único companheiro
+Troca do companheiro selecionado
+
+Após selecionar um Pokémon, seu GIF mini é exibido ao lado do treinador.
+
+🔎 Pesquisa de companheiro
+
+A escolha do companheiro possui uma barra de pesquisa.
+
+Exemplo:
+
+Pesquisar Pokémon...
+
+Pikachu
+
+Ao selecionar um Pokémon, ele passa a acompanhar o treinador.
+
+A Pokébola pode ser utilizada novamente para trocar o companheiro.
+
+📋 Lista de Pokémon
+
+A área lateral do Meu Time apresenta os 151 Pokémon.
+
+A lista possui uma área de visualização com rolagem própria.
+
+Isso evita que os 151 Pokémon aumentem o tamanho da página.
+
+Cada item apresenta:
+
+GIF mini
+Número
+Nome
+Indicação de Pokémon já selecionado
+
+A navegação da lista utiliza uma barra de rolagem vertical semelhante à barra de rolagem tradicional do navegador.
+
+⏳ Sistema de carregamento
 
 A aplicação possui uma tela global de carregamento.
 
@@ -137,13 +274,13 @@ Também existem tratamentos para:
 NavigationCancel
 NavigationError
 
-Assim, o carregamento não permanece ativo caso uma navegação seja cancelada ou apresente erro.
+Dessa forma, o carregamento não permanece ativo caso uma navegação seja cancelada ou apresente erro.
 
-GIFs dos Pokémon
+🎞️ GIFs dos Pokémon
 
-Os GIFs utilizados nas páginas individuais ficam armazenados localmente.
+Os GIFs utilizados nas páginas individuais e no Meu Time ficam armazenados localmente.
 
-A estrutura utilizada é:
+A estrutura principal utilizada é:
 
 public/
 └── pokemon/
@@ -153,39 +290,75 @@ public/
     ├── ...
     └── 151.gif
 
-O sistema identifica o ID do Pokémon e monta automaticamente o caminho do GIF.
+O sistema identifica o ID do Pokémon e monta automaticamente o caminho correspondente.
 
 Por exemplo:
 
 ID 1
 ↓
-/pokemon/001.gif
-
+001.gif
 ID 25
 ↓
-/pokemon/025.gif
-
+025.gif
 ID 151
 ↓
-/pokemon/151.gif
+151.gif
 
-Isso permite que cada Pokémon utilize seu GIF correspondente sem precisar configurar cada página manualmente.
+Isso permite utilizar o mesmo sistema para os 151 Pokémon.
 
-Sprites
+🧩 GIFs mini
 
-Na Pokédex principal são utilizados sprites dos Pokémon.
+O projeto também utiliza versões menores dos Pokémon para determinados elementos da interface.
 
-Os sprites são carregados a partir dos recursos disponibilizados pela PokeAPI.
+A estrutura utilizada é:
 
-A escolha dos sprites na página principal e dos GIFs nas páginas individuais permite manter a Pokédex mais leve e, ao mesmo tempo, deixar a página de detalhes mais dinâmica.
+public/
+└── gif_mini/
+    ├── Bulbasaur_mini.gif
+    ├── Ivysaur_mini.gif
+    ├── Venusaur_mini.gif
+    ├── ...
+    └── Mew_mini.gif
 
-Barra de pesquisa
+Os GIFs mini são utilizados principalmente na:
+
+Lista de seleção do Meu Time
+Seleção do companheiro
+Interface do companheiro do treinador
+
+Enquanto os GIFs normais são utilizados na exibição dos Pokémon dentro da equipe.
+
+🧑‍🎨 Sprites
+
+Na Pokédex principal são utilizados sprites dos Pokémon disponibilizados pela PokeAPI.
+
+A aplicação utiliza diferentes tipos de recursos visuais de acordo com a funcionalidade:
+
+Pokédex
+   ↓
+Sprites da PokeAPI
+
+Página individual
+   ↓
+GIFs locais
+
+Meu Time
+   ↓
+GIFs normais + GIFs mini
+
+Companheiro
+   ↓
+GIF mini
+
+Essa divisão permite utilizar imagens diferentes de acordo com a finalidade de cada parte da interface.
+
+🔎 Barra de pesquisa
 
 A navbar possui uma barra de pesquisa para localizar Pokémon.
 
 Conforme o usuário digita, o sistema filtra os Pokémon disponíveis e apresenta os resultados.
 
-Ao selecionar um resultado, o usuário é direcionado automaticamente para a página de detalhes daquele Pokémon.
+Ao selecionar um resultado, o usuário é direcionado automaticamente para a página de detalhes.
 
 Exemplo:
 
@@ -194,34 +367,33 @@ Buscar Pokémon
 Pikachu
       ↓
 /pokemon/25
-Navegação
+🧭 Navegação
 
 A aplicação possui uma navbar global.
 
 Atualmente existem as seguintes páginas:
 
 Pokédex
-Meu Time
-Créditos
-Pokédex
-
-Página principal com os 151 Pokémon de Kanto.
-
-Rota:
-
 /pokedex
+
+Página principal contendo os 151 Pokémon de Kanto.
+
+Detalhes do Pokémon
+/pokemon/:id
+
+Página individual com informações detalhadas sobre cada Pokémon.
+
 Meu Time
+/meu-time
 
-Página reservada para uma futura funcionalidade de criação e gerenciamento de equipe.
+Página para montagem e gerenciamento de uma equipe de até seis Pokémon.
 
-Atualmente a página informa:
-
-Estamos trabalhando nisso...
 Créditos
+/creditos
 
-Página destinada aos agradecimentos, apresentação do projeto e link para o GitHub do desenvolvedor.
+Página destinada aos créditos e informações sobre o projeto.
 
-Tecnologias utilizadas
+🛠️ Tecnologias utilizadas
 Front-end
 Angular
 TypeScript
@@ -230,11 +402,18 @@ CSS
 Bootstrap
 API
 PokeAPI
-Recursos
+Recursos visuais
 Sprites da PokeAPI
 GIFs locais dos Pokémon
+GIFs mini dos Pokémon
 GIF personalizado de carregamento
-Estrutura do projeto
+Elementos de pixel art
+Ferramentas
+Visual Studio Code
+Git
+GitHub
+GitHub Pages
+📁 Estrutura do projeto
 
 A estrutura principal da aplicação segue aproximadamente:
 
@@ -244,15 +423,34 @@ kanto-trainer/
 │   ├── KantoTrainer_Transparente.png
 │   ├── carregamento.gif
 │   │
-│   └── pokemon/
-│       ├── 001.gif
-│       ├── 002.gif
-│       ├── ...
-│       └── 151.gif
+│   ├── pokemon/
+│   │   ├── 001.gif
+│   │   ├── 002.gif
+│   │   ├── 003.gif
+│   │   ├── ...
+│   │   └── 151.gif
+│   │
+│   ├── gif_mini/
+│   │   ├── Bulbasaur_mini.gif
+│   │   ├── Ivysaur_mini.gif
+│   │   ├── ...
+│   │   └── Mew_mini.gif
+│   │
+│   └── pokeutil/
+│       ├── red_mini.gif
+│       ├── leaf_mini.gif
+│       ├── mini_pokebola.png
+│       └── chat_pixel.png
 │
 └── src/
     ├── app/
     │
+    │   ├── components/
+    │   │   └── pokedex-device/
+    │   │       ├── pokedex-device.ts
+    │   │       ├── pokedex-device.html
+    │   │       └── pokedex-device.css
+    │   │
     │   ├── loading/
     │   │   ├── loading.ts
     │   │   ├── loading.html
@@ -264,10 +462,17 @@ kanto-trainer/
     │   │   └── navbar.css
     │   │
     │   ├── pages/
-    │   │   └── pokedex/
-    │   │       ├── pokedex.ts
-    │   │       ├── pokedex.html
-    │   │       └── pokedex.css
+    │   │   ├── pokedex/
+    │   │   │   ├── pokedex.ts
+    │   │   │   ├── pokedex.html
+    │   │   │   └── pokedex.css
+    │   │   │
+    │   │   ├── meu-time/
+    │   │   │   ├── meu-time.ts
+    │   │   │   ├── meu-time.html
+    │   │   │   └── meu-time.css
+    │   │   │
+    │   │   └── cretidtos/
     │   │
     │   ├── pokemon-detalhes/
     │   │   ├── pokemon-detalhes.ts
@@ -284,7 +489,7 @@ kanto-trainer/
     │   └── app.config.ts
     │
     └── main.ts
-Como a aplicação funciona
+⚙️ Como a aplicação funciona
 
 O funcionamento principal pode ser dividido em algumas etapas.
 
@@ -319,7 +524,7 @@ Array da aplicação
 Cards da Pokédex
 3. Seleção de um Pokémon
 
-Quando o usuário clica em um Pokémon, seu ID é enviado para o Router.
+Quando o usuário seleciona um Pokémon, seu ID é enviado para o Router.
 
 Exemplo:
 
@@ -348,62 +553,89 @@ PokeAPI
       ↓
 Dados do Pikachu
 
-Com os dados recebidos, a página monta as informações e o gráfico.
+Com os dados recebidos, a aplicação monta a interface da Pokédex individual.
 
-5. GIF
+5. Navegação entre Pokémon
 
-O GIF é carregado localmente utilizando o ID do Pokémon.
+Na página individual, o D-pad permite navegar entre os Pokémon.
 
-O código transforma o ID em três dígitos:
+Pokémon atual
+     ↓
+D-pad
+     ↓
+Router
+     ↓
+Novo ID
+     ↓
+PokemonService
+     ↓
+Novo Pokémon
 
-25
-↓
-025
-↓
-/pokemon/025.gif
+A aplicação observa as alterações da rota para atualizar o Pokémon exibido sem precisar recriar manualmente toda a página.
 
-Dessa forma, os 151 GIFs seguem o mesmo padrão.
+6. Montagem do time
 
-Rotas
+No Meu Time, o usuário seleciona um dos seis slots.
 
-Atualmente o projeto utiliza rotas para separar as diferentes páginas.
+D-pad
+   ↓
+Slot selecionado
+   ↓
+Usuário escolhe Pokémon
+   ↓
+Pokémon é colocado no slot
 
-/pokedex
+Antes de adicionar um Pokémon, o sistema verifica se ele já está presente na equipe.
 
-Página principal da Pokédex.
-
-/pokemon/:id
-
-Página individual de cada Pokémon.
-
-/meu-time
-
-Página reservada para a funcionalidade de equipe.
-
-/creditos
-
-Página de créditos do projeto.
-
-Design
+Pokémon selecionado
+        ↓
+Já está no time?
+     ↙       ↘
+   SIM       NÃO
+    ↓          ↓
+ Bloqueia    Adiciona
+🎨 Design
 
 A interface foi desenvolvida buscando uma identidade visual inspirada na estética clássica dos jogos Pokémon.
 
-Alguns elementos utilizados são:
+Entre os elementos utilizados estão:
 
 Bordas marcadas
 Sombras sólidas
-Tipografia com aparência monoespaçada
+Cores fortes
+Tipografia monoespaçada
 Elementos pixelados
 Sprites
-GIFs
-Cores relacionadas aos tipos Pokémon
-Interface simples e direta
+GIFs animados
+Botões inspirados em interfaces de jogos
+D-pad
+Pokébola interativa
+Interface de treinador
+Campo de grama
+Componentes responsivos
 
 A intenção é combinar uma estrutura moderna de aplicação web com referências visuais aos jogos clássicos.
 
-Objetivo do projeto
+📱 Responsividade
 
-O Kanto Trainer foi desenvolvido principalmente como projeto de aprendizado.
+O projeto possui estilos responsivos para diferentes tamanhos de tela.
+
+A interface adapta elementos como:
+
+Pokédex
+Campo do Meu Time
+Painel lateral
+Lista de Pokémon
+D-pad
+Cards
+Menus
+Seleção de companheiro
+
+O objetivo é permitir que a aplicação seja utilizada tanto em computadores quanto em telas menores.
+
+🎯 Objetivo do projeto
+
+O Kanto Trainer foi desenvolvido principalmente como um projeto de aprendizado e evolução prática em desenvolvimento web.
 
 Durante o desenvolvimento foram praticados conceitos como:
 
@@ -415,45 +647,48 @@ Services
 Injeção de dependências
 Consumo de APIs REST
 Interfaces TypeScript
-Data binding
-Event binding
+Data Binding
+Event Binding
 @if
 @for
 Formulários
 ngModel
+Signals
 Manipulação de imagens
 CSS responsivo
 Organização de projetos
-Git e GitHub
-Próximas funcionalidades
+Git
+GitHub
+GitHub Pages
+🚧 Próximas funcionalidades
 
-Algumas funcionalidades planejadas para versões futuras:
+Algumas ideias para futuras versões:
 
- Sistema completo de criação do Meu Time
- Adicionar Pokémon ao time
- Remover Pokémon do time
- Limite de 6 Pokémon
- Persistência do time
- Melhorias na busca
- Filtros por tipo
- Melhorias de responsividade
- Animações adicionais
- Melhorias gerais de UI/UX
+Persistência do time utilizando LocalStorage
+Remoção individual de Pokémon
+Sistema de troca de posições
+Mais filtros na Pokédex
+Filtros por tipo
+Sistema de ordenação
+Melhorias na pesquisa
+Mais informações na página de detalhes
+Melhorias de responsividade
+Animações adicionais
+Efeitos sonoros
+Melhorias gerais de UI/UX
+👨‍💻 Créditos
+
+Projeto desenvolvido por Davi-S1va.
+
+GitHub:
+
+https://github.com/Davi-S1va
+
+🔗 Recursos utilizados
+PokeAPI
+
+https://pokeapi.co/docs/v2
+
+A PokeAPI é utilizada para obtenção dos dados dos Pokémon.
  ```
-## Créditos
-
-
-Projeto desenvolvido por **[Dav-S1va](https://github.com/Davi-S1va)**
-
-GitHub: https://github.com/Davi-S1va
-
-
-PokeAPI: https://pokeapi.co/docs/v2
-<td width="60%" align="center" valign="middle">
-
-<img 
-  src="https://media.tenor.com/3Ee3bt5jNxQAAAAi/pokemon-pok%C3%A9mon.gif"
-  width="100px"
-/>
-
-</td>
+<p align="center"> <img src="https://media.tenor.com/3Ee3bt5jNxQAAAAi/pokemon-pok%C3%A9mon.gif" width="100" /> </p> <p align="center"> <strong>Gotta catch 'em all! 🔴⚪</strong> </p>
