@@ -1,0 +1,459 @@
+@if (pokemon) {
+
+  <div class="pokedex-wrapper">
+
+    <div class="pokedex">
+
+
+      <!-- =========================
+           LADO ESQUERDO
+           ========================= -->
+
+      <section class="pokedex-left">
+
+
+        <!-- LUZES -->
+
+        <div class="top-lights">
+
+          <div class="main-light">
+
+            <div class="main-light-inner"></div>
+
+          </div>
+
+          <div class="small-lights">
+
+            <span class="light red"></span>
+            <span class="light yellow"></span>
+            <span class="light green"></span>
+
+          </div>
+
+        </div>
+
+
+        <!-- TELA -->
+
+        <div class="main-screen-container">
+
+          <div class="main-screen">
+
+            <img
+              [src]="gifPokemon"
+              [alt]="nomePokemon"
+              class="pokemon-gif"
+            >
+
+          </div>
+
+          <div class="screen-lights">
+
+            <span></span>
+            <span></span>
+
+          </div>
+
+        </div>
+
+
+        <!-- CONTROLES -->
+
+        <div class="left-controls">
+
+          <div class="black-button"></div>
+
+          <div class="small-control red-control"></div>
+
+          <div class="small-control blue-control"></div>
+
+        </div>
+
+
+        <!-- INFORMAÇÕES -->
+
+        <div class="left-info-display">
+
+          <span>
+            #{{ numeroPokemon }}
+          </span>
+
+          <strong>
+            {{ nomePokemon }}
+          </strong>
+
+        </div>
+
+
+        <!-- =========================
+             D-PAD
+             ========================= -->
+
+        <div class="dpad">
+
+          <!-- CIMA - SEM FUNÇÃO -->
+
+          <button
+            type="button"
+            class="dpad-up"
+            aria-label="Sem função">
+          </button>
+
+
+          <!-- ESQUERDA - ANTERIOR -->
+
+          <button
+            type="button"
+            class="dpad-left"
+            aria-label="Pokémon anterior"
+            title="Pokémon anterior"
+            (click)="previousPokemon.emit()">
+          </button>
+
+
+          <!-- CENTRO - SEM FUNÇÃO -->
+
+          <button
+            type="button"
+            class="dpad-center"
+            aria-label="Sem função">
+          </button>
+
+
+          <!-- DIREITA - PRÓXIMO -->
+
+          <button
+            type="button"
+            class="dpad-right"
+            aria-label="Próximo Pokémon"
+            title="Próximo Pokémon"
+            (click)="nextPokemon.emit()">
+          </button>
+
+
+          <!-- BAIXO - SEM FUNÇÃO -->
+
+          <button
+            type="button"
+            class="dpad-down"
+            aria-label="Sem função">
+          </button>
+
+        </div>
+
+      </section>
+
+
+      <!-- =========================
+           DOBRADIÇA
+           ========================= -->
+
+      <div class="pokedex-hinge">
+
+        <div class="hinge-line top"></div>
+
+        <div class="hinge-line middle"></div>
+
+        <div class="hinge-line bottom"></div>
+
+      </div>
+
+
+      <!-- =========================
+           LADO DIREITO
+           ========================= -->
+
+      <section class="pokedex-right">
+
+
+        <!-- DISPLAY -->
+
+        <div class="pokemon-display">
+
+          <div class="pokemon-number">
+            #{{ numeroPokemon }}
+          </div>
+
+          <div class="pokemon-title">
+            {{ nomePokemon }}
+          </div>
+
+          <div class="pokemon-types">
+
+            @for (
+              tipo of pokemon.types;
+              track tipo.slot
+            ) {
+
+              <span
+                class="type-badge"
+                [class]="'type-badge type-' + tipo.type.name">
+
+                {{ traduzirTipo(tipo.type.name) }}
+
+              </span>
+
+            }
+
+          </div>
+
+        </div>
+
+
+        <!-- MENU -->
+
+        <div class="pokedex-menu">
+
+          <button
+            type="button"
+            class="menu-button"
+            [class.active]="telaAtual === 'info'"
+            (click)="selecionarTela('info')">
+            INFO
+          </button>
+
+          <button
+            type="button"
+            class="menu-button"
+            [class.active]="telaAtual === 'tipo'"
+            (click)="selecionarTela('tipo')">
+            TYPE
+          </button>
+
+          <button
+            type="button"
+            class="menu-button"
+            [class.active]="telaAtual === 'stats'"
+            (click)="selecionarTela('stats')">
+            STATS
+          </button>
+
+          <button
+            type="button"
+            class="menu-button"
+            [class.active]="telaAtual === 'habilidade'"
+            (click)="selecionarTela('habilidade')">
+            ABILITY
+          </button>
+
+          <button
+            type="button"
+            class="menu-button"
+            (click)="previousPokemon.emit()">
+            PREV
+          </button>
+
+          <button
+            type="button"
+            class="menu-button"
+            (click)="nextPokemon.emit()">
+            NEXT
+          </button>
+
+          <button
+            type="button"
+            class="menu-button"
+            (click)="selecionarTela('info')">
+            DATA
+          </button>
+
+          <button
+            type="button"
+            class="menu-button"
+            (click)="selecionarTela('stats')">
+            STATUS
+          </button>
+
+        </div>
+
+
+        <!-- CONTROLES -->
+
+        <div class="right-small-controls">
+
+          <span></span>
+          <span></span>
+
+        </div>
+
+
+        <!-- DETALHES -->
+
+        <div class="detail-display">
+
+
+          @if (telaAtual === 'info') {
+
+            <div class="info-content">
+
+              <div class="info-row">
+                <span>ALTURA</span>
+
+                <strong>
+                  {{ altura }} m
+                </strong>
+              </div>
+
+              <div class="info-row">
+                <span>PESO</span>
+
+                <strong>
+                  {{ peso }} kg
+                </strong>
+              </div>
+
+              <div class="info-row">
+                <span>HABILIDADE</span>
+
+                <strong>
+                  {{ formatarNome(habilidade) }}
+                </strong>
+              </div>
+
+              <div class="info-row">
+                <span>EXPERIÊNCIA BASE</span>
+
+                <strong>
+                  {{ pokemon.base_experience }}
+                </strong>
+              </div>
+
+            </div>
+
+          }
+
+
+          @if (telaAtual === 'tipo') {
+
+            <div class="type-content">
+
+              <h3>
+                TIPO DO POKÉMON
+              </h3>
+
+              <div class="big-types">
+
+                @for (
+                  tipo of pokemon.types;
+                  track tipo.slot
+                ) {
+
+                  <span
+                    class="big-type"
+                    [class]="'big-type type-' + tipo.type.name">
+
+                    {{ traduzirTipo(tipo.type.name) }}
+
+                  </span>
+
+                }
+
+              </div>
+
+            </div>
+
+          }
+
+
+          @if (telaAtual === 'stats') {
+
+            <div class="stats-content">
+
+              <h3>
+                STATUS BASE
+              </h3>
+
+              <div class="stats-list">
+
+                @for (
+                  stat of pokemon.stats;
+                  track stat.stat.name
+                ) {
+
+                  <div class="stat-row">
+
+                    <span>
+                      {{ traduzirStatus(stat.stat.name) }}
+                    </span>
+
+                    <div class="stat-bar">
+
+                      <div
+                        class="stat-fill"
+                        [style.width.%]="porcentagemStatus(stat.base_stat)"
+                        [style.background-color]="corStatus(stat.base_stat)">
+                      </div>
+
+                    </div>
+
+                    <strong>
+                      {{ stat.base_stat }}
+                    </strong>
+
+                  </div>
+
+                }
+
+              </div>
+
+            </div>
+
+          }
+
+
+          @if (telaAtual === 'habilidade') {
+
+            <div class="ability-content">
+
+              <h3>
+                HABILIDADE
+              </h3>
+
+              <div class="ability-name">
+                {{ formatarNome(habilidade) }}
+              </div>
+
+              <div class="ability-info">
+                Habilidade principal deste Pokémon.
+              </div>
+
+
+              @if (pokemon.abilities.length > 1) {
+
+                <div class="other-abilities">
+
+                  <span>
+                    OUTRAS:
+                  </span>
+
+                  @for (
+                    ability of pokemon.abilities.slice(1);
+                    track ability.slot
+                  ) {
+
+                    <strong>
+                      {{ formatarNome(ability.ability.name) }}
+                    </strong>
+
+                  }
+
+                </div>
+
+              }
+
+            </div>
+
+          }
+
+        </div>
+
+
+        <div class="right-button"></div>
+
+      </section>
+
+    </div>
+
+  </div>
+
+}

@@ -2,22 +2,21 @@ import { Injectable } from '@angular/core';
 
 import { HttpClient } from '@angular/common/http';
 
+import { Observable } from 'rxjs';
+
 import { Pokemon } from '../../models/pokemon';
 
 import { PokemonApi } from '../../models/pokemon-api';
 
-import { Observable } from 'rxjs';
 
-import { PokemonLista } from '../../models/pokemon-lista';
+
 
 @Injectable({
   providedIn: 'root'
 })
-
-
 export class PokemonService {
 
-  private apiUrl =
+  private readonly apiUrl =
     'https://pokeapi.co/api/v2/pokemon';
 
 
@@ -25,7 +24,7 @@ export class PokemonService {
     private http: HttpClient
   ) {}
 
-  
+
   buscarPokemonsKanto(): Observable<any> {
 
     return this.http.get<any>(
@@ -35,7 +34,9 @@ export class PokemonService {
   }
 
 
-  buscarPokemon(id: number) {
+  buscarPokemon(
+    id: number
+  ): Observable<PokemonApi> {
 
     return this.http.get<PokemonApi>(
       `${this.apiUrl}/${id}`
@@ -67,7 +68,8 @@ export class PokemonService {
       categoria: '',
 
       habilidade:
-        pokemonApi.abilities[0]?.ability.name ?? '',
+        pokemonApi.abilities[0]
+          ?.ability.name ?? '',
 
       fraquezas: [],
 
@@ -78,22 +80,28 @@ export class PokemonService {
       estatisticas: {
 
         hp:
-          pokemonApi.stats[0]?.base_stat ?? 0,
+          pokemonApi.stats[0]
+            ?.base_stat ?? 0,
 
         ataque:
-          pokemonApi.stats[1]?.base_stat ?? 0,
+          pokemonApi.stats[1]
+            ?.base_stat ?? 0,
 
         defesa:
-          pokemonApi.stats[2]?.base_stat ?? 0,
+          pokemonApi.stats[2]
+            ?.base_stat ?? 0,
 
         ataqueEspecial:
-          pokemonApi.stats[3]?.base_stat ?? 0,
+          pokemonApi.stats[3]
+            ?.base_stat ?? 0,
 
         defesaEspecial:
-          pokemonApi.stats[4]?.base_stat ?? 0,
+          pokemonApi.stats[4]
+            ?.base_stat ?? 0,
 
         velocidade:
-          pokemonApi.stats[5]?.base_stat ?? 0
+          pokemonApi.stats[5]
+            ?.base_stat ?? 0
 
       }
 

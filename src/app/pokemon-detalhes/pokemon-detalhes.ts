@@ -1,63 +1,164 @@
 import {
   Component,
-  ElementRef,
-  ViewChild,
-  ChangeDetectorRef
+  signal
 } from '@angular/core';
-
-import { TitleCasePipe } from '@angular/common';
 
 import {
   ActivatedRoute,
   Router
 } from '@angular/router';
 
-import { PokemonService } from '../services/pokemon';
+import {
+  PokemonService
+} from '../services/pokemon';
 
-import { PokemonApi } from '../../models/pokemon-api';
+import {
+  PokemonApi
+} from '../../models/pokemon-api';
+
+import {
+  PokedexDeviceComponent
+} from '../components/pokedex-device/pokedex-device';
 
 
 @Component({
   selector: 'app-pokemon-detalhes',
 
+  standalone: true,
+
   imports: [
-    TitleCasePipe
+    PokedexDeviceComponent
   ],
 
   templateUrl: './pokemon-detalhes.html',
 
-  styleUrl: './pokemon-detalhes.css',
+  styleUrl: './pokemon-detalhes.css'
 })
-
-
 export class PokemonDetalhes {
 
-  pokemonApi: PokemonApi | null = null;
+  /*
+   * Signal com o Pokémon atual.
+   *
+   * Quando o valor muda, o Angular atualiza
+   * automaticamente o template.
+   */
+  pokemonApi = signal<PokemonApi | null>(null);
 
-  gifPokemon: string = '';
 
-
-  @ViewChild('imagemPokemon')
-  imagemPokemon?: ElementRef<HTMLImageElement>;
+  /*
+   * Signal para controlar erros.
+   */
+  erroCarregamento = signal(false);
 
 
   constructor(
-    private route: ActivatedRoute,
-    private router: Router,
-    private pokemonService: PokemonService,
-    private cdr: ChangeDetectorRef
+
+    private readonly route:
+      ActivatedRoute,
+
+    private readonly router:
+      Router,
+
+    private readonly pokemonService:
+      PokemonService
+
   ) {
 
-    const id = Number(
-      this.route.snapshot.paramMap.get('id')
+    console.log(
+      '🟢 PokemonDetalhes inicializado'
     );
 
 
+    /*
+     * Observa o ID da URL.
+     *
+     * Funciona tanto para:
+     *
+     * /pokemon/3
+     *
+     * quanto:
+     *
+     * /pokemon/3 → /pokemon/4
+     *
+     * /pokemon/4 → /pokemon/5
+     */
+
+    this.route.paramMap.subscribe(
+      params => {
+
+        const id = Number(
+          params.get('id')
+        );
+
+
+        console.log(
+          '🔵 ID recebido pela rota:',
+          id
+        );
+
+
+        this.carregarPokemon(id);
+
+      }
+    );
+
+  }
+
+
+  carregarPokemon(
+    id?: number
+  ): void {
+
+    /*
+     * Quando o botão "Tentar novamente"
+     * chama este método sem ID, usamos
+     * o ID atual da URL.
+     */
+
+    if (id === undefined) {
+
+      id = Number(
+        this.route.snapshot
+          .paramMap
+          .get('id')
+      );
+
+    }
+
+
+    console.log(
+      '🔵 Carregando Pokémon:',
+      id
+    );
+
+
+    /*
+     * Limpa o Pokémon anterior.
+     *
+     * Como é signal, o Angular sabe
+     * imediatamente que o template mudou.
+     */
+
+    this.pokemonApi.set(null);
+
+    this.erroCarregamento.set(false);
+
+
+    /*
+     * Validação do ID.
+     */
+
     if (
-      !id ||
+      !Number.isInteger(id) ||
       id < 1 ||
       id > 151
     ) {
+
+      console.error(
+        '🔴 ID inválido:',
+        id
+      );
+
 
       this.router.navigate([
         '/pokedex'
@@ -68,73 +169,101 @@ export class PokemonDetalhes {
     }
 
 
-    this.carregarPokemon(id);
+    console.log(
+      '🔵 Buscando Pokémon na API:',
+      id
+    );
 
-  }
-
-
-  carregarPokemon(
-    id: number
-  ): void {
 
     this.pokemonService
       .buscarPokemon(id)
-
       .subscribe({
 
-        next: (dados) => {
+        next: (
+          dados: PokemonApi
+        ) => {
 
-          this.pokemonApi = dados;
+          console.log(
+            '🟢 Pokémon carregado:',
+            dados
+          );
 
 
           /*
-           * GIF local do Pokémon
+           * Validação dos dados recebidos.
+           */
+
+          if (
+            !dados ||
+            !dados.id ||
+            !dados.name
+          ) {
+
+            console.error(
+              '🔴 API retornou dados inválidos:',
+              dados
+            );
+
+
+            this.pokemonApi.set(null);
+
+            this.erroCarregamento.set(
+              true
+            );
+
+            return;
+
+          }
+
+
+          /*
+           * Atualiza o signal.
            *
-           * Exemplo:
-           * /pokemon/001.gif
-           * /pokemon/025.gif
-           * /pokemon/151.gif
+           * NÃO precisamos de:
+           *
+           * detectChanges()
+           * NgZone
+           * zone.run()
            */
 
-          this.gifPokemon =
-            `/pokemon/${id
-              .toString()
-              .padStart(3, '0')}.gif`;
+          this.pokemonApi.set(
+            dados
+          );
 
 
-          /*
-           * Força o Angular
-           * a atualizar a tela
-           */
-
-          this.cdr.detectChanges();
+          this.erroCarregamento.set(
+            false
+          );
 
 
-          /*
-           * Aguarda a imagem
-           * existir no HTML
-           */
+          console.log(
+            '🟣 TELA ATUALIZADA COM:',
+            dados.name
+          );
 
-          setTimeout(() => {
-
-            this.atualizarImagem();
-
-          }, 0);
+          console.log(
+            '🟣 ID ATUAL:',
+            dados.id
+          );
 
         },
 
 
-        error: (erro) => {
+        error: (
+          erro: unknown
+        ) => {
 
           console.error(
-            'Erro ao carregar Pokémon:',
+            '🔴 ERRO AO CARREGAR POKÉMON:',
             erro
           );
 
 
-          this.router.navigate([
-            '/pokedex'
-          ]);
+          this.pokemonApi.set(null);
+
+          this.erroCarregamento.set(
+            true
+          );
 
         }
 
@@ -143,170 +272,112 @@ export class PokemonDetalhes {
   }
 
 
-  atualizarImagem(): void {
+  /*
+   * =========================
+   * POKÉMON ANTERIOR
+   * =========================
+   */
 
-    if (
-      this.imagemPokemon &&
-      this.gifPokemon
-    ) {
+  pokemonAnterior(): void {
 
-      this.imagemPokemon
-        .nativeElement
-        .src = this.gifPokemon;
+    const pokemon =
+      this.pokemonApi();
+
+
+    if (!pokemon) {
+
+      console.warn(
+        '⚠️ Não existe Pokémon carregado.'
+      );
+
+      return;
 
     }
 
-  }
+
+    const idAtual =
+      pokemon.id;
 
 
-  traduzirTipo(
-    tipo: string
-  ): string {
-
-    const tipos: {
-      [key: string]: string
-    } = {
-
-      normal: 'Normal',
-
-      fire: 'Fogo',
-
-      water: 'Água',
-
-      electric: 'Elétrico',
-
-      grass: 'Planta',
-
-      ice: 'Gelo',
-
-      fighting: 'Lutador',
-
-      poison: 'Veneno',
-
-      ground: 'Terrestre',
-
-      flying: 'Voador',
-
-      psychic: 'Psíquico',
-
-      bug: 'Inseto',
-
-      rock: 'Pedra',
-
-      ghost: 'Fantasma',
-
-      dragon: 'Dragão',
-
-      dark: 'Sombrio',
-
-      steel: 'Aço',
-
-      fairy: 'Fada'
-
-    };
+    const idAnterior =
+      idAtual <= 1
+        ? 151
+        : idAtual - 1;
 
 
-    return tipos[tipo] ?? tipo;
-
-  }
-
-
-  traduzirStatus(
-    status: string
-  ): string {
-
-    const statusTraduzidos: {
-      [key: string]: string
-    } = {
-
-      hp: 'HP',
-
-      attack: 'Ataque',
-
-      defense: 'Defesa',
-
-      'special-attack':
-        'Ataque Especial',
-
-      'special-defense':
-        'Defesa Especial',
-
-      speed: 'Velocidade'
-
-    };
-
-
-    return (
-      statusTraduzidos[status]
-      ?? status
+    console.log(
+      '⬅️ Pokémon anterior:',
+      idAnterior
     );
 
+
+    this.router.navigate([
+      '/pokemon',
+      idAnterior
+    ]);
+
   }
 
 
-  porcentagemStatus(
-    valor: number
-  ): number {
+  /*
+   * =========================
+   * PRÓXIMO POKÉMON
+   * =========================
+   */
 
-    /*
-     * 255 é utilizado como
-     * referência máxima.
-     *
-     * Garantimos que nunca
-     * passe de 100%.
-     */
+  proximoPokemon(): void {
 
-    const porcentagem =
-      (valor / 255) * 100;
+    const pokemon =
+      this.pokemonApi();
 
 
-    return Math.min(
-      Math.max(
-        porcentagem,
-        0
-      ),
-      100
+    if (!pokemon) {
+
+      console.warn(
+        '⚠️ Não existe Pokémon carregado.'
+      );
+
+      return;
+
+    }
+
+
+    const idAtual =
+      pokemon.id;
+
+
+    const proximoId =
+      idAtual >= 151
+        ? 1
+        : idAtual + 1;
+
+
+    console.log(
+      '➡️ Próximo Pokémon:',
+      proximoId
     );
 
-  }
 
-
-  corStatus(
-    valor: number
-  ): string {
-
-    /*
-     * Cores diferentes
-     * dependendo do valor.
-     */
-
-    if (valor >= 120) {
-
-      return '#3bc95f';
-
-    }
-
-
-    if (valor >= 80) {
-
-      return '#f2c94c';
-
-    }
-
-
-    if (valor >= 50) {
-
-      return '#f2994a';
-
-    }
-
-
-    return '#e74c3c';
+    this.router.navigate([
+      '/pokemon',
+      proximoId
+    ]);
 
   }
 
+
+  /*
+   * =========================
+   * VOLTAR
+   * =========================
+   */
 
   voltarParaPokedex(): void {
+
+    console.log(
+      '⬅️ Voltando para Pokédex'
+    );
+
 
     this.router.navigate([
       '/pokedex'

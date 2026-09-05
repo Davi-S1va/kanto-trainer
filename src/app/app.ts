@@ -13,9 +13,7 @@ import {
 } from '@angular/router';
 
 import { Navbar } from './navbar/navbar';
-
 import { Loading } from './loading/loading';
-
 
 @Component({
   selector: 'app-root',
@@ -30,84 +28,78 @@ import { Loading } from './loading/loading';
 
   styleUrl: './app.css'
 })
-
-
 export class App {
 
   protected readonly title =
     signal('kanto-trainer');
 
-
   /*
-   * Controla a tela
-   * de carregamento
+   * Loading global da aplicação.
+   *
+   * Começa desligado.
    */
-  carregando = false;
-
+  carregando =
+    signal(false);
 
   constructor(
-    private router: Router
+    private readonly router: Router
   ) {
 
+    this.router.events.subscribe(event => {
 
-    this.router.events
-      .subscribe(event => {
+      console.log(
+        'EVENTO DO ROUTER:',
+        event.constructor.name
+      );
 
+      /*
+       * ==========================
+       * INÍCIO DA NAVEGAÇÃO
+       * ==========================
+       */
 
-        /*
-         * Quando começa
-         * uma navegação
-         */
-        if (
-          event instanceof NavigationStart
-        ) {
+      if (
+        event instanceof NavigationStart
+      ) {
 
-          this.carregando = true;
+        console.log(
+          '🟡 COMEÇOU A NAVEGAÇÃO'
+        );
 
-        }
+        this.carregando.set(true);
 
+        return;
+      }
 
-        /*
-         * Quando termina
-         * uma navegação
-         */
-        if (
-          event instanceof NavigationEnd
-        ) {
+      /*
+       * ==========================
+       * FIM DA NAVEGAÇÃO
+       * ==========================
+       */
 
-          this.carregando = false;
+      if (
+        event instanceof NavigationEnd ||
+        event instanceof NavigationCancel ||
+        event instanceof NavigationError
+      ) {
 
-        }
+        console.log(
+          '🟢 NAVEGAÇÃO TERMINADA'
+        );
 
+        setTimeout(() => {
 
-        /*
-         * Caso a navegação
-         * seja cancelada
-         */
-        if (
-          event instanceof NavigationCancel
-        ) {
+          console.log(
+            '⚪ DESLIGANDO LOADING'
+          );
 
-          this.carregando = false;
+          this.carregando.set(false);
 
-        }
+        }, 400);
 
+      }
 
-        /*
-         * Caso aconteça
-         * algum erro
-         */
-        if (
-          event instanceof NavigationError
-        ) {
-
-          this.carregando = false;
-
-        }
-
-
-      });
-
+    });
 
   }
 

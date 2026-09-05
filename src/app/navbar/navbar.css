@@ -1,45 +1,555 @@
+/* =========================================================
+   NAVBAR
+   ========================================================= */
+
 .minha-navbar {
-  background-color: rgb(221, 69, 69);
-  position: relative; 
-  height: 130px;  
+  background-color: #db003d;
+
+  position: relative;
+
+  min-height: 130px;
+
+  height: auto;
+
+  padding: 10px 20px;
+
+  box-sizing: border-box;
 }
 
-.links_pag {
-  position: absolute;
-  bottom: 10px;
-  left: 50%;
-  transform: translateX(40%);
+
+/* =========================================================
+   CONTAINER
+   ========================================================= */
+
+.minha-navbar .container-fluid {
+  position: relative;
+
+  width: 100%;
+
+  min-height: 110px;
+
+  display: flex;
+
+  align-items: flex-start;
+
+  box-sizing: border-box;
 }
 
-.nav-link {
-  color: rgb(255, 252, 252);
-  font-weight: bold;
-  font-size: 1.2rem;  
-  text-decoration: none; 
-  margin: 0 10px;  
+
+/* =========================================================
+   LOGO
+   ========================================================= */
+
+.logo {
+  flex-shrink: 0;
+
+  margin-top: 5px;
 }
+
+.logo img {
+  width: 140px;
+  height: auto;
+
+  display: block;
+
+  object-fit: contain;
+}
+
+
+/* =========================================================
+   PESQUISA
+   ========================================================= */
 
 .pesquisa-container {
   position: absolute;
-  left: 300px;
-  width: 600px;
+
+  left: 50%;
+
+  top: 8px;
+
+  transform: translateX(-50%);
+
+  width: min(600px, 45vw);
+
+  z-index: 100;
 }
 
-.resultados-pesquisa {
-  position: absolute;
+
+/* =========================================================
+   BARRA DE PESQUISA
+   ========================================================= */
+
+.barra-pesquisa {
   width: 100%;
-  z-index: 1000;
+
+  display: flex;
+
+  align-items: center;
 }
 
-.resultado-item {
-  padding: 10px;
-  cursor: pointer;
-  background-color: aliceblue;
-  width: 300px;
+.barra-pesquisa input {
+  min-width: 0;
+
+  flex: 1;
+
+  height: 40px;
 }
 
 .buscar-botao {
+  flex-shrink: 0;
+
+  height: 40px;
+
   background-color: white;
+
   color: rgb(221, 69, 69);
+
   font-weight: bold;
+
+  border: 1px solid #ccc;
+
+  white-space: nowrap;
+}
+
+
+/* =========================================================
+   RESULTADOS DA PESQUISA
+   ========================================================= */
+
+.resultados-pesquisa {
+  position: absolute;
+
+  top: 100%;
+
+  left: 0;
+
+  width: 100%;
+
+  max-height: 300px;
+
+  overflow-y: auto;
+
+  z-index: 1000;
+
+  background: white;
+
+  border: 1px solid #ccc;
+
+  box-sizing: border-box;
+}
+
+
+/* =========================================================
+   ITEM DO RESULTADO
+   ========================================================= */
+
+.resultado-item {
+  width: 100%;
+
+  min-height: 40px;
+
+  display: flex;
+
+  align-items: center;
+
+  padding: 8px 12px;
+
+  box-sizing: border-box;
+
+  cursor: pointer;
+
+  background-color: aliceblue;
+
+  color: #222;
+
+  border-bottom: 1px solid #ddd;
+}
+
+.resultado-item:hover {
+  background-color: #dceff5;
+}
+
+
+/* =========================================================
+   LINKS
+   ========================================================= */
+
+.links_pag {
+  position: absolute;
+
+  left: 50%;
+
+  bottom: 5px;
+
+  transform: translateX(-50%);
+
+  display: flex;
+
+  justify-content: center;
+
+  align-items: center;
+
+  margin: 0;
+
+  padding: 0;
+
+  white-space: nowrap;
+}
+
+
+/* =========================================================
+   LINKS INDIVIDUAIS
+   ========================================================= */
+
+.nav-link {
+  color: rgb(255, 252, 252);
+
+  font-weight: bold;
+
+  font-size: 1.2rem;
+
+  text-decoration: none;
+
+  margin: 0 10px;
+
+  transition:
+    color .15s ease,
+    background-color .15s ease;
+}
+
+.nav-link:hover {
+  color: white;
+
+  background-color: rgba(255, 255, 255, .08);
+}
+
+
+/* =========================================================
+   NOTEBOOK / TELAS MENORES
+   ========================================================= */
+
+@media (max-width: 1100px) {
+
+  .minha-navbar {
+    min-height: 125px;
+
+    padding-left: 15px;
+    padding-right: 15px;
+  }
+
+
+  .minha-navbar .container-fluid {
+    min-height: 105px;
+  }
+
+
+  .logo img {
+    width: 125px;
+  }
+
+
+  .pesquisa-container {
+    width: min(500px, 48vw);
+  }
+
+
+  .nav-link {
+    font-size: 1.05rem;
+
+    margin: 0 6px;
+  }
+
+}
+
+
+/* =========================================================
+   TABLET
+   ========================================================= */
+
+@media (max-width: 850px) {
+
+  .minha-navbar {
+    min-height: 150px;
+
+    padding:
+      8px
+      12px;
+  }
+
+
+  .minha-navbar .container-fluid {
+    min-height: 135px;
+  }
+
+
+  /* Logo */
+
+  .logo {
+    position: absolute;
+
+    left: 10px;
+
+    top: 5px;
+  }
+
+
+  .logo img {
+    width: 115px;
+  }
+
+
+  /* Pesquisa */
+
+  .pesquisa-container {
+    left: 50%;
+
+    top: 5px;
+
+    width: calc(100% - 250px);
+
+    max-width: none;
+
+    transform: translateX(-25%);
+  }
+
+
+  /* Links */
+
+  .links_pag {
+    left: 50%;
+
+    bottom: 5px;
+
+    transform: translateX(-50%);
+
+    width: 100%;
+
+    justify-content: center;
+  }
+
+
+  .nav-link {
+    font-size: 1rem;
+
+    margin: 0 5px;
+  }
+
+}
+
+
+/* =========================================================
+   CELULAR
+   ========================================================= */
+
+@media (max-width: 600px) {
+
+  .minha-navbar {
+
+    min-height: 190px;
+
+    padding:
+      8px
+      10px;
+  }
+
+
+  .minha-navbar .container-fluid {
+
+    min-height: 175px;
+
+    display: block;
+  }
+
+
+  /* =======================================================
+     LOGO
+     ======================================================= */
+
+  .logo {
+
+    position: absolute;
+
+    left: 50%;
+
+    top: 3px;
+
+    transform: translateX(-50%);
+
+    margin: 0;
+  }
+
+
+  .logo img {
+
+    width: 120px;
+  }
+
+
+  /* =======================================================
+     PESQUISA
+     ======================================================= */
+
+  .pesquisa-container {
+
+    position: absolute;
+
+    left: 10px;
+
+    right: 10px;
+
+    top: 65px;
+
+    width: auto;
+
+    transform: none;
+  }
+
+
+  .barra-pesquisa {
+
+    width: 100%;
+
+    gap: 5px;
+  }
+
+
+  .barra-pesquisa input {
+
+    width: 100%;
+
+    height: 38px;
+
+    font-size: 14px;
+  }
+
+
+  .buscar-botao {
+
+    height: 38px;
+
+    padding:
+      0 12px;
+
+    font-size: 13px;
+  }
+
+
+  /* =======================================================
+     RESULTADOS
+     ======================================================= */
+
+  .resultados-pesquisa {
+
+    max-height: 250px;
+  }
+
+
+  .resultado-item {
+
+    min-height: 38px;
+
+    font-size: 14px;
+
+    padding:
+      7px
+      10px;
+  }
+
+
+  /* =======================================================
+     LINKS
+     ======================================================= */
+
+  .links_pag {
+
+    position: absolute;
+
+    left: 0;
+
+    right: 0;
+
+    bottom: 5px;
+
+    width: 100%;
+
+    transform: none;
+
+    display: flex;
+
+    justify-content: center;
+
+    align-items: center;
+
+    overflow: hidden;
+  }
+
+
+  .nav-link {
+
+    font-size: .9rem;
+
+    margin:
+      0 4px;
+
+    padding:
+      7px 6px;
+  }
+
+}
+
+
+/* =========================================================
+   CELULARES PEQUENOS
+   ========================================================= */
+
+@media (max-width: 400px) {
+
+  .minha-navbar {
+
+    min-height: 185px;
+  }
+
+
+  .logo img {
+
+    width: 105px;
+  }
+
+
+  .pesquisa-container {
+
+    top: 60px;
+
+    left: 7px;
+
+    right: 7px;
+  }
+
+
+  .barra-pesquisa input {
+
+    font-size: 13px;
+  }
+
+
+  .buscar-botao {
+
+    padding:
+      0 9px;
+
+    font-size: 12px;
+  }
+
+
+  .nav-link {
+
+    font-size: .82rem;
+
+    margin:
+      0 2px;
+
+    padding:
+      6px 4px;
+  }
+
 }

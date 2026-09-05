@@ -1,3 +1,16 @@
 /* You can add global styles to this file, and also import other style files */
 @import 'bootstrap/dist/css/bootstrap.min.css';
 
+/* Remove o cursor de texto da interface inteira */
+html,
+body,
+* {
+  caret-color: transparent;
+}
+
+/* Mantém o cursor de digitação nos campos */
+input,
+textarea,
+[contenteditable="true"] {
+  caret-color: auto;
+}

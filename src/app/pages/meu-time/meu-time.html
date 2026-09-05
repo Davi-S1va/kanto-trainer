@@ -1,25 +1,548 @@
-<div class="pagina-em-construcao">
+<div class="meu-time">
 
-  <div class="conteudo">
 
-    <h1>
-      Meu Time
-    </h1>
+  <!-- =====================================================
+       TÍTULO
+       ===================================================== -->
 
-    <p>
+  <header class="titulo-time">
+    Monte seu Time
+  </header>
 
-      Estamos trabalhando nisso...
 
-    </p>
+  <!-- =====================================================
+       ÁREA PRINCIPAL
+       ===================================================== -->
 
-    <span>
+  <main class="area-principal">
 
-      Em breve você poderá
-      montar seu próprio time
-      Pokémon.
 
-    </span>
+    <!-- ===================================================
+         CAMPO
+         =================================================== -->
 
-  </div>
+    <section class="campo-time">
+
+      <div class="grama">
+
+
+        <!-- ===============================================
+             SEIS SLOTS DO TIME
+             =============================================== -->
+
+        <div class="slots-time">
+
+          @for (
+            pokemon of time;
+            track $index
+          ) {
+
+            <div
+              class="slot"
+              [class.selecionado]="
+                slotSelecionado === $index
+              "
+            >
+
+              @if (pokemon) {
+
+                <div class="cartao-pokemon">
+
+                  <div class="nome-pokemon">
+                    {{ pokemon.nome }}
+                  </div>
+
+                  <div class="imagem-pokemon">
+
+                    <img
+                      [src]="imagemPokemon(pokemon)"
+                      [alt]="pokemon.nome"
+                    >
+
+                  </div>
+
+                  <div class="numero-pokemon">
+                    #{{ numeroPokemon(pokemon) }}
+                  </div>
+
+                </div>
+
+              }
+
+            </div>
+
+          }
+
+        </div>
+
+
+        <!-- ===============================================
+             BARRA VERMELHA INFERIOR
+             =============================================== -->
+
+        <div class="barra-inferior">
+
+
+          <!-- BOTÃO GRANDE -->
+
+          <div class="botao-grande"></div>
+
+
+          <!-- LUZES -->
+
+          <div class="luzes">
+
+            <span class="luz vermelha"></span>
+
+            <span class="luz amarela"></span>
+
+            <span class="luz azul"></span>
+
+          </div>
+
+
+          <!-- RESET TIME -->
+
+          <button
+            type="button"
+            class="reset-time"
+            (click)="resetarTime()"
+          >
+            RESET TIME
+          </button>
+
+
+          <!-- =============================================
+               D-PAD
+               AGORA DENTRO DA BARRA VERMELHA
+               ============================================= -->
+
+          <div class="dpad-time">
+
+            <!-- CIMA -->
+
+            <button
+              type="button"
+              class="dpad-up"
+              aria-label="Slot acima"
+              title="Slot acima"
+              (click)="moverCima()"
+            ></button>
+
+
+            <!-- ESQUERDA -->
+
+            <button
+              type="button"
+              class="dpad-left"
+              aria-label="Slot anterior"
+              title="Slot anterior"
+              (click)="moverEsquerda()"
+            ></button>
+
+
+            <!-- CENTRO -->
+
+            <button
+              type="button"
+              class="dpad-center"
+              aria-label="Selecionar slot"
+              title="Slot selecionado"
+            ></button>
+
+
+            <!-- DIREITA -->
+
+            <button
+              type="button"
+              class="dpad-right"
+              aria-label="Próximo slot"
+              title="Próximo slot"
+              (click)="moverDireita()"
+            ></button>
+
+
+            <!-- BAIXO -->
+
+            <button
+              type="button"
+              class="dpad-down"
+              aria-label="Slot abaixo"
+              title="Slot abaixo"
+              (click)="moverBaixo()"
+            ></button>
+
+          </div>
+
+        </div>
+
+      </div>
+
+    </section>
+
+
+    <!-- ===================================================
+         PAINEL DIREITO
+         =================================================== -->
+
+    <aside class="painel-direito">
+
+
+      <!-- =================================================
+           ÁREA DO TREINADOR
+           ================================================= -->
+
+      <section class="painel-treinador">
+
+
+        <div class="tela-treinador">
+
+
+          <!-- TREINADOR + COMPANHEIRO -->
+
+          <div class="treinador-area">
+
+            <img
+              [src]="imagemTreinador"
+              alt="Treinador"
+              class="treinador"
+            >
+
+
+            @if (companheiro) {
+
+              <img
+                [src]="imagemCompanheiro"
+                [alt]="companheiro.nome"
+                class="companheiro"
+              >
+
+            }
+
+
+            <!-- MINI POKÉBOLA -->
+
+            <button
+              type="button"
+              class="botao-pokebola"
+              aria-label="Escolher companheiro"
+              title="Escolher companheiro"
+              (click)="abrirEscolhaCompanheiro()"
+            >
+
+              <img
+                src="pokeutil/mini_pokebola.png"
+                alt=""
+                class="mini-pokebola"
+              >
+
+            </button>
+
+          </div>
+
+
+          <!-- =================================================
+               BALÃO DE FALA
+               APARECE SOMENTE ANTES DO PRIMEIRO CLIQUE
+               NA POKÉBOLA
+               ================================================= -->
+
+          @if (mostrarBalaoInstrucao) {
+
+            <div class="balao">
+
+              <img
+                src="pokeutil/chat_pixel.png"
+                alt=""
+                class="imagem-balao"
+              >
+
+              <div class="texto-balao">
+
+                Clique na Pokébola para
+                escolher seu companheiro.
+
+              </div>
+
+            </div>
+
+          }
+
+
+        </div>
+
+
+        <!-- =================================================
+             CONTROLES DO PAINEL
+             ================================================= -->
+
+        <div class="controles-painel">
+
+
+          <!-- RED -->
+
+          <button
+            type="button"
+            class="botao-genero"
+            [class.ativo]="
+              generoTreinador === 'red'
+            "
+            (click)="generoTreinador = 'red'"
+            aria-label="Selecionar Red"
+            title="Red"
+          >
+            ♂
+          </button>
+
+
+          <!-- LEAF -->
+
+          <button
+            type="button"
+            class="botao-genero feminino"
+            [class.ativo]="
+              generoTreinador === 'leaf'
+            "
+            (click)="generoTreinador = 'leaf'"
+            aria-label="Selecionar Leaf"
+            title="Leaf"
+          >
+            ♀
+          </button>
+
+
+          <!-- MENU -->
+
+          <div class="menu-hamburguer">
+
+            <span></span>
+            <span></span>
+            <span></span>
+
+          </div>
+
+
+          <!-- LUZ -->
+
+          <div class="luz-painel"></div>
+
+
+        </div>
+
+      </section>
+
+
+      <!-- =================================================
+           LISTA DE POKÉMON
+           ================================================= -->
+
+      <section class="lista-pokemon">
+
+
+        <div class="titulo-lista">
+          Selecione o Pokémon
+        </div>
+
+
+        <div class="lista-scroll">
+
+
+          @for (
+            pokemon of pokemons;
+            track pokemon.id
+          ) {
+
+
+            <button
+              type="button"
+              class="pokemon-lista-item"
+
+              [class.pokemon-do-time]="
+                pokemonEstaNoTime(pokemon)
+              "
+
+              [disabled]="
+                pokemonEstaNoTime(pokemon)
+              "
+
+              (click)="
+                selecionarPokemon(pokemon)
+              "
+            >
+
+
+              <!-- MINI GIF -->
+
+              <div class="mini-imagem">
+
+                <img
+                  [src]="
+                    'gif_mini/' +
+                    pokemon.gifMini
+                  "
+                  [alt]="pokemon.nome"
+                >
+
+              </div>
+
+
+              <!-- NÚMERO -->
+
+              <span class="numero-lista">
+                {{ pokemon.id }}
+              </span>
+
+
+              <!-- NOME -->
+
+              <span class="nome-lista">
+                {{ pokemon.nome }}
+              </span>
+
+
+              <!-- CHECK -->
+
+              <span class="checkbox">
+
+                @if (
+                  pokemonEstaNoTime(pokemon)
+                ) {
+
+                  ✓
+
+                }
+
+              </span>
+
+
+            </button>
+
+          }
+
+
+        </div>
+
+      </section>
+
+
+    </aside>
+
+
+  </main>
+
+
+  <!-- =====================================================
+       MODAL DO COMPANHEIRO
+       ===================================================== -->
+
+  @if (mostrarEscolhaCompanheiro) {
+
+
+    <div
+      class="overlay-companheiro"
+      (click)="fecharEscolhaCompanheiro()"
+    >
+
+
+      <div
+        class="modal-companheiro"
+        (click)="$event.stopPropagation()"
+      >
+
+
+        <div class="modal-cabecalho">
+
+          <strong>
+            Escolha seu companheiro
+          </strong>
+
+
+          <button
+            type="button"
+            class="fechar-modal"
+            (click)="fecharEscolhaCompanheiro()"
+            aria-label="Fechar"
+          >
+            ×
+          </button>
+
+        </div>
+
+
+        <!-- PESQUISA -->
+
+        <div class="pesquisa-companheiro">
+
+          <input
+            type="text"
+            placeholder="Pesquisar Pokémon..."
+            [(ngModel)]="pesquisaCompanheiro"
+          >
+
+        </div>
+
+
+        <!-- LISTA -->
+
+        <div class="lista-companheiro">
+
+
+          @for (
+            pokemon of pokemonsCompanheiro;
+            track pokemon.id
+          ) {
+
+
+            <button
+              type="button"
+              class="item-companheiro"
+
+              (click)="
+                selecionarCompanheiro(pokemon)
+              "
+            >
+
+              <img
+                [src]="
+                  'gif_mini/' +
+                  pokemon.gifMini
+                "
+                [alt]="pokemon.nome"
+              >
+
+              <span>
+                #{{ pokemon.id }}
+              </span>
+
+              <strong>
+                {{ pokemon.nome }}
+              </strong>
+
+            </button>
+
+
+          }
+
+
+          @if (
+            pokemonsCompanheiro.length === 0
+          ) {
+
+            <div class="nenhum-companheiro">
+              Nenhum Pokémon encontrado.
+            </div>
+
+          }
+
+
+        </div>
+
+
+      </div>
+
+    </div>
+
+  }
+
 
 </div>

@@ -12,17 +12,14 @@
 
   justify-content: center;
 
-  background:
-
-    rgba(
-      0,
-      0,
-      0,
-      0.82
-    );
+  background: rgba(
+    0,
+    0,
+    0,
+    0.82
+  );
 
 }
-
 
 .loading-conteudo {
 
@@ -36,7 +33,6 @@
 
 }
 
-
 .loading-pikachu {
 
   width: 220px;
@@ -47,7 +43,6 @@
 
 }
 
-
 .loading-conteudo p {
 
   margin-top: 20px;
@@ -55,7 +50,6 @@
   color: white;
 
   font-family:
-
     "Courier New",
     monospace;
 
